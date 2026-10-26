@@ -1,0 +1,22 @@
+import { Phone, Sparkles } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+
+type Member = { name: string; role: string; home: string; image: string; summary: string; phone?: string; contributions: readonly string[]; vision: string };
+
+export function TeamCard({ member }: { member: Member }) {
+  return <article className="group grid min-h-40 grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-md border border-border bg-card shadow-card sm:flex sm:h-full sm:flex-col">
+    <div className="h-full min-h-40 overflow-hidden bg-muted sm:aspect-[4/5] sm:h-auto"><img src={member.image} alt={member.name} className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]" /></div>
+    <div className="flex min-w-0 flex-1 flex-col p-3 text-left sm:p-4 sm:text-center"><h3 className="font-display text-base uppercase leading-tight text-primary sm:text-lg">{member.name}</h3><p className="mt-1 text-xs leading-5 text-muted-foreground sm:mt-2 sm:min-h-10">{member.role}</p><div className="mt-3 flex flex-wrap gap-2 sm:mt-auto sm:justify-center sm:pt-4"><span className="rounded-sm bg-highlight px-2.5 py-1.5 text-[10px] font-extrabold text-highlight-foreground">{member.home}</span></div><div className="mt-auto flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-2 text-[11px] font-bold text-primary sm:mt-4 sm:justify-center sm:gap-5 sm:pt-3 sm:text-xs"><span className="inline-flex items-center gap-1"><Sparkles size={13}/> Community</span>{member.phone ? <a href={`tel:${member.phone}`} className="inline-flex items-center gap-1"><Phone size={13}/> Contact</a> : null}</div></div>
+  </article>;
+}
+
+export function TeamProfile({ member }: { member: Member }) {
+  return <article className="grid overflow-hidden rounded-md border border-border bg-card shadow-card md:grid-cols-[280px_1fr]">
+    <div className="h-64 border-b-4 border-highlight bg-muted sm:h-80 md:h-auto md:min-h-full md:border-b-0 md:border-r-4"><img src={member.image} alt={member.name} className="h-full w-full object-contain object-top md:object-cover" /></div>
+    <div className="p-4 sm:p-8"><h2 className="font-display text-xl uppercase leading-tight text-primary sm:text-3xl">{member.name}</h2><p className="mt-1 text-sm font-semibold text-muted-foreground">{member.role}</p><p className="mt-3 text-sm leading-6 text-foreground sm:mt-4">{member.summary}</p><div className="mt-4 grid grid-cols-1 gap-2 min-[390px]:grid-cols-2 sm:flex sm:flex-wrap"><span className="rounded-sm bg-highlight px-3 py-2 text-center text-xs font-extrabold text-highlight-foreground">{member.home}</span>{member.phone ? <a href={`tel:${member.phone}`} className="inline-flex items-center justify-center gap-2 rounded-sm bg-primary px-3 py-2 text-xs font-bold text-primary-foreground"><Phone size={14}/>{member.phone}</a> : null}</div><h3 className="mt-6 text-xs font-extrabold uppercase text-primary sm:mt-7">Contributions at Kosmos</h3><ul className="mt-3 space-y-2">{member.contributions.map(item => <li key={item} className="border-l-2 border-highlight pl-3 text-sm leading-6 text-muted-foreground">{item}</li>)}</ul><div className="mt-5 rounded-md bg-accent p-4 sm:mt-6"><p className="text-[11px] font-extrabold uppercase text-accent-foreground">My vision: Fit Kosmos, Happy Kosmos</p><p className="mt-2 text-sm leading-6 text-foreground">{member.vision}</p></div></div>
+  </article>;
+}
+
+export function TeamPreview({ members }: { members: readonly Member[] }) {
+  return <section className="bg-surface py-12 sm:py-20"><div className="mx-auto max-w-[1400px] px-4 sm:px-5"><div className="mb-7 grid gap-5 sm:mb-10 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end"><div className="min-w-0"><p className="eyebrow">Our team</p><h2 className="section-title max-w-4xl">Residents. <span>Professionals.</span><br />Community members.</h2><p className="mt-4 max-w-3xl text-sm text-muted-foreground sm:text-base">A diverse group of Jaypee Kosmos residents with varied professional experience and a record of work and involvement inside Kosmos.</p></div><Link to="/team" className="rounded-md bg-highlight px-5 py-3 text-center text-xs font-extrabold uppercase text-highlight-foreground">View all profiles →</Link></div><div className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-5">{members.map(member => <TeamCard key={member.name} member={member} />)}</div></div></section>;
+}
