@@ -15,6 +15,13 @@ export default defineConfig({
 
     // Prerender every static route to HTML at build time so the site can also
     // be served from a purely static host (GitHub Pages).
-    prerender: { enabled: true },
+    pages: [
+      { path: "/" },
+      { path: "/agenda" },
+      { path: "/initiatives" },
+      { path: "/team" },
+      { path: "/dog-safety" },
+    ],
+    prerender: { enabled: true, autoStaticPathsDiscovery: false },
   },
 });
