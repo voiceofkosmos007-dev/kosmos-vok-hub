@@ -1,5 +1,4 @@
-
-name: Deploy Lovable website to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -7,7 +6,6 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
   pages: write
   id-token: write
 
@@ -16,31 +14,41 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
+  build:
     runs-on: ubuntu-latest
-
+    env:
+      # Must match your repository name: https://<user>.github.io/VOK-new/
+      # If you use a custom domain or a <user>.github.io repo, change this to "/".
+      VITE_BASE_PATH: /VOK-new/
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Build website
+      - name: Build
         run: bun run build
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Prepare static output
+        run: |
+          # SPA fallback: GitHub Pages serves 404.html for unknown paths,
+          # so deep links like /VOK-new/agenda still load the app.
+          cp dist/client/index.html dist/client/404.html
+          # Skip Jekyll processing so all asset folders are served as-is.
+          touch dist/client/.nojekyll
 
-      - name: Upload website
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist/client
 
-      - name: Deploy website
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
         uses: actions/deploy-pages@v4
