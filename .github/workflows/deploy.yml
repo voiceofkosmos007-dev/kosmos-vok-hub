@@ -17,9 +17,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Must match your repository name: https://<user>.github.io/VOK-new/
+      # Must match your repository name: https://<user>.github.io/kosmos-vok-hub/
       # If you use a custom domain or a <user>.github.io repo, change this to "/".
-      VITE_BASE_PATH: /VOK-new/
+      VITE_BASE_PATH: /kosmos-vok-hub/
     steps:
       - uses: actions/checkout@v4
 
