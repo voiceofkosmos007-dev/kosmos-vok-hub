@@ -1,6 +1,7 @@
 - [x] Add dog-safety content and four supporting PDF links.
 - [x] Add home and navigation access, including phones.
 - [x] Verify the page and PDF links.
-- [ ] Prevent static builds from crawling document links.
-- [ ] Include actual images and PDFs and update all references for GitHub Pages.
-- [ ] Verify images and PDFs load with the repository base path.
+- [x] Prevent static builds from crawling document links.
+- [x] Include actual images and PDFs and update all references for GitHub Pages.
+- [x] Verify all team images and four PDFs in preview; use Vite-managed URLs for the repository base path.
+- [ ] Confirm media on the live GitHub Pages site after the updated files are deployed (waiting on GitHub deployment).
