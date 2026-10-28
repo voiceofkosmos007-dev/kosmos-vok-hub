@@ -19,7 +19,7 @@ jobs:
     env:
       # Follow the actual repository name, including when it is renamed.
       # For a custom domain or a <user>.github.io repository, use "/" instead.
-      VITE_BASE_PATH: /${{ github.event.repository.name }}/
+      VITE_BASE_PATH: /
     steps:
       - uses: actions/checkout@v4
 
