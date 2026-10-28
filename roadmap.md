@@ -1,3 +1,6 @@
 - [x] Add dog-safety content and four supporting PDF links.
 - [x] Add home and navigation access, including phones.
 - [x] Verify the page and PDF links.
+- [ ] Prevent static builds from crawling document links.
+- [ ] Include actual images and PDFs and update all references for GitHub Pages.
+- [ ] Verify images and PDFs load with the repository base path.
