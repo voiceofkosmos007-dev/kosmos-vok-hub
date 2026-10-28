@@ -33,15 +33,28 @@ jobs:
 
       - name: Prepare static output
         run: |
-          # SPA fallback: GitHub Pages serves 404.html for unknown paths,
-          # so deep links like /VOK-new/agenda still load the app.
-          cp dist/client/index.html dist/client/404.html
+          # Outside Lovable the build writes the static site to .output/public;
+          # inside Lovable it uses dist/client. Pick whichever exists.
+          if [ -f .output/public/index.html ]; then
+            OUT=.output/public
+          elif [ -f dist/client/index.html ]; then
+            OUT=dist/client
+          else
+            echo "No index.html found in .output/public or dist/client" >&2
+            ls -la . .output dist 2>/dev/null || true
+            exit 1
+          fi
+          mkdir -p site
+          cp -R "$OUT"/. site/
+          # SPA fallback: GitHub Pages serves 404.html for unknown paths.
+          cp site/index.html site/404.html
           # Skip Jekyll processing so all asset folders are served as-is.
-          touch dist/client/.nojekyll
+          touch site/.nojekyll
+          find site -name "*.html"
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: site
 
   deploy:
     needs: build
