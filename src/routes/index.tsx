@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck, Building2, HandCoins, Sparkles, Dog, Users, Landmark, MessagesSquare } from "lucide-react";
-import hero from "@/assets/kosmos-hero.jpg.asset.json";
+import hero from "@/assets/kosmos-hero.jpg";
 import { Page } from "@/components/site-shell";
 import { TeamPreview } from "@/components/team-card";
 import { priorities, team } from "@/lib/kosmos-data";
@@ -24,7 +24,7 @@ function Index() {
   return (
     <Page>
       <section className="relative overflow-hidden bg-primary text-primary-foreground sm:min-h-[610px]">
-        <img src={hero.url} alt="Landscaped residential community at Jaypee Kosmos" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={hero} alt="Landscaped residential community at Jaypee Kosmos" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-hero-overlay" />
         <div className="relative mx-auto grid max-w-6xl gap-7 px-4 pb-16 pt-9 sm:min-h-[610px] sm:px-5 sm:pb-20 sm:pt-16 lg:items-center"><div className="min-w-0 max-w-2xl"><p className="eyebrow text-primary-foreground/75">A safer, cleaner, better-connected Kosmos</p><h1 className="mt-4 font-display text-5xl uppercase leading-[.92] sm:mt-5 sm:text-7xl lg:text-8xl">Voice of<br /><span className="text-highlight">Kosmos</span></h1><p className="mt-4 text-lg font-semibold sm:mt-5 sm:text-xl">Our Society. Our Voice. A Brighter Tomorrow.</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75 sm:mt-5 sm:leading-7">We are residents of Jaypee Kosmos with professional experience and a commitment to transparent, accountable community action. We stand for faster issue resolution, honest communication and outcomes residents can see.</p><div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3"><Link to="/agenda" className="rounded-md bg-highlight px-3 py-3 text-center text-[11px] font-extrabold uppercase text-highlight-foreground sm:px-5 sm:text-xs">Our agenda →</Link><Link to="/team" className="rounded-md border border-primary-foreground/40 px-3 py-3 text-center text-[11px] font-extrabold uppercase text-primary-foreground sm:px-5 sm:text-xs">Meet our team →</Link></div></div></div>
       </section>
