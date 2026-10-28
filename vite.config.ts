@@ -12,13 +12,14 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 const base = process.env["VITE_BASE_PATH"] ?? "/";
 
 export default defineConfig({
-  vite: {
-    base,
-  },
+  vite: { base },
   tanstackStart: {
-    server: {
-      entry: "server",
-    },
+    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+    // nitro/vite builds from this
+    server: { entry: "server" },
+
+    // Prerender every static route to HTML at build time so the site can also
+    // be served from a purely static host (GitHub Pages).
     pages: [
       { path: "/" },
       { path: "/agenda" },
@@ -26,12 +27,7 @@ export default defineConfig({
       { path: "/team" },
       { path: "/dog-safety" },
     ],
-    prerender: {
-      enabled: true,
-      crawlLinks: false,
-      autoStaticPathsDiscovery: false,
-      failOnError: true,
-    },
+    // Outside Lovable, TanStack otherwise follows every link, including PDFs.
+    prerender: { enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false },
   },
 });
-

@@ -1,14 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { Menu } from "lucide-react";
 import type { ReactNode } from "react";
-import logo from "@/assets/voice-of-kosmos-logo.png.asset.json";
+import logo from "@/assets/voice-of-kosmos-logo.png";
 import { Button } from "@/components/ui/button";
 
 export function Header() {
   return <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
     <div className="mx-auto grid h-16 max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 sm:h-20 sm:px-5 md:flex md:justify-between">
       <Link to="/" className="flex items-center gap-3" aria-label="Voice of Kosmos home">
-        <img src={logo.url} alt="Voice of Kosmos" className="size-11 shrink-0 rounded-full sm:size-14" />
+        <img src={logo} alt="Voice of Kosmos" className="size-11 shrink-0 rounded-full sm:size-14" />
         <span className="hidden sm:block"><strong className="block font-display text-lg uppercase text-primary">Voice of <span className="text-highlight">Kosmos</span></strong><small className="block text-[10px] font-bold uppercase text-muted-foreground">Jaypee Kosmos, Noida</small></span>
       </Link>
       <nav className="hidden items-center gap-5 text-sm font-bold text-primary md:flex" aria-label="Main navigation">

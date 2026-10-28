@@ -3,10 +3,10 @@ import remarkGfm from "remark-gfm";
 import { FileText, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { dogSafetyContent } from "@/lib/kosmos-data";
-import july from "@/assets/dog-safety-july-correspondence.pdf.asset.json";
-import september from "@/assets/dog-safety-september-follow-up.pdf.asset.json";
-import october from "@/assets/dog-safety-october-follow-up.pdf.asset.json";
-import rti from "@/assets/dog-safety-rti-first-appeal.pdf.asset.json";
+import july from "@/assets/dog-safety-july-correspondence.pdf?url";
+import september from "@/assets/dog-safety-september-follow-up.pdf?url";
+import october from "@/assets/dog-safety-october-follow-up.pdf?url";
+import rti from "@/assets/dog-safety-rti-first-appeal.pdf?url";
 
 const documents = [
   { title: "Draft representations to DM & CEO", date: "15 July 2026", detail: "Email to Kosmos AOA sharing draft letters for approval.", asset: july },
@@ -22,11 +22,11 @@ export function DogSafetyContent() {
         <p className="eyebrow">Letters · Correspondence · RTI</p>
         <h2 className="mt-3 font-display text-2xl uppercase text-primary sm:text-3xl">Supporting documents</h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {documents.map(doc => <article key={doc.asset.url} className="flex min-w-0 flex-col rounded-md border border-border bg-card p-5">
+          {documents.map(doc => <article key={doc.asset} className="flex min-w-0 flex-col rounded-md border border-border bg-card p-5">
             <div className="flex items-center gap-2 text-accent-foreground"><FileText size={18}/><span className="text-xs font-bold">PDF · {doc.date}</span></div>
             <h3 className="mt-3 text-lg font-bold text-primary">{doc.title}</h3>
             <p className="mb-5 mt-2 text-sm leading-6 text-muted-foreground">{doc.detail}</p>
-            <Button asChild variant="outline" className="mt-auto self-start"><a href={doc.asset.url} target="_blank" rel="noopener noreferrer" aria-label={`Open PDF: ${doc.title}`}>Open PDF <ArrowUpRight/></a></Button>
+            <Button asChild variant="outline" className="mt-auto self-start"><a href={doc.asset} target="_blank" rel="noopener noreferrer" aria-label={`Open PDF: ${doc.title}`}>Open PDF <ArrowUpRight/></a></Button>
           </article>)}
         </div>
       </div>

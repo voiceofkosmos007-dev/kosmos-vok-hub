@@ -1,4 +1,3 @@
-
 name: Deploy to GitHub Pages
 
 on:
@@ -7,7 +6,6 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
   pages: write
   id-token: write
 
@@ -19,8 +17,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      VITE_BASE_PATH: /kosmos-vok-hub/
-
+      # Follow the actual repository name, including when it is renamed.
+      # For a custom domain or a <user>.github.io repository, use "/" instead.
+      VITE_BASE_PATH: /${{ github.event.repository.name }}/
     steps:
       - uses: actions/checkout@v4
 
@@ -32,21 +31,17 @@ jobs:
       - name: Build
         run: bun run build
 
-      - name: Verify and prepare static output
+      - name: Prepare static output
         run: |
-          echo "=== Generated HTML files ==="
-          find .output/public -type f -name '*.html' -print
-
-          test -f .output/public/index.html
-
-          cp .output/public/index.html .output/public/404.html
-          touch .output/public/.nojekyll
-
-      - uses: actions/configure-pages@v5
+          # SPA fallback: GitHub Pages serves 404.html for unknown paths,
+          # so deep links like /VOK-new/agenda still load the app.
+          cp dist/client/index.html dist/client/404.html
+          # Skip Jekyll processing so all asset folders are served as-is.
+          touch dist/client/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .output/public
+          path: dist/client
 
   deploy:
     needs: build
@@ -54,7 +49,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
