@@ -17,9 +17,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # Must match your repository name: https://<user>.github.io/VOK-new/
-      # If you use a custom domain or a <user>.github.io repo, change this to "/".
-      VITE_BASE_PATH: /VOK-new/
+      # Follow the actual repository name, including when it is renamed.
+      # For a custom domain or a <user>.github.io repository, use "/" instead.
+      VITE_BASE_PATH: /${{ github.event.repository.name }}/
     steps:
       - uses: actions/checkout@v4
 

@@ -27,6 +27,7 @@ export default defineConfig({
       { path: "/team" },
       { path: "/dog-safety" },
     ],
-    prerender: { enabled: true, autoStaticPathsDiscovery: false },
+    // Outside Lovable, TanStack otherwise follows every link, including PDFs.
+    prerender: { enabled: true, autoStaticPathsDiscovery: false, crawlLinks: false },
   },
 });
